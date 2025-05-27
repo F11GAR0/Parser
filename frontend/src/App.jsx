@@ -6,7 +6,6 @@ import axios from 'axios'
 
 import "./style/application.css";
 import "@patternfly/react-core/dist/styles/base.css";
-import { json } from 'stream/consumers';
 
 function App() {
 
