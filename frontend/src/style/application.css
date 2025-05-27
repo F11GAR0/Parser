@@ -1,8 +1,10 @@
 .parse-row {
     width: 70%;
-    display: flex;
-    flex-direction: row;
     gap: 30px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .application-container {
@@ -10,4 +12,8 @@
     flex-direction: column;
     padding: 30px 30px 30px 30px;
     gap: 30px;
+}
+
+.text-input-container {
+    width: auto;
 }
