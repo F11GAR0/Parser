@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@patternfly/react-core": "^6.2.2",
+    "@patternfly/react-table": "^6.2.2",
+    "@vitejs/plugin-react": "^4.5.0",
+    "axios": "^1.9.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^6.3.5"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
