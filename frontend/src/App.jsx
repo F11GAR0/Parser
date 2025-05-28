@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Title, Button, TextInput} from '@patternfly/react-core';
+import React, { useState, useEffect } from 'react';
+import {Title, Button, TextInput, Skeleton} from '@patternfly/react-core';
 import {Table, Thead, Tr, Th, Tbody, Td} from '@patternfly/react-table';
 
 import axios from 'axios'
@@ -10,8 +10,10 @@ import "@patternfly/react-core/dist/styles/base.css";
 function App() {
     const [textInputValue, setTextInputValue] = useState('');
     const [responseData, setResponseData] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const handleClick = () => {
-        axios.post(`http://${window.location.hostname}:8080/api/parser`, { urlEncoded: textInputValue })
+        axios.post(`http://${window.location.hostname}:8080/api/parser`, { urlEncoded: encodeURI(textInputValue) })
             .then(response => {
                 console.log('Success:', response.data);
                 setResponseData(response.data);
@@ -19,8 +21,15 @@ function App() {
             .catch(error => {
                 console.error('Error:', error);
                 setResponseData([]);
+            })
+            .finally(result => {
+                setLoading(false);
             });
     };
+
+    useEffect(() => {
+        document.title = "Cleaning Parser"
+     }, []);
 
     return (
         <div>
@@ -29,14 +38,15 @@ function App() {
                 <div className="parse-row">
                     <Title headingLevel="h4"> Input URL: </Title>
                     <div className="text-input-container">
-                        <TextInput value={textInputValue} type="text" onChange={(_event, value) => setTextInputValue(value)} aria-label="text input example" />
+                        <TextInput value={textInputValue} type="text" onChange={(_event, value) => { setTextInputValue(value); } } aria-label="text input example" />
                     </div>
-                    <Button variant="primary" onClick={handleClick}>
+                    <Button variant="primary" onClick={ () => {handleClick(); setLoading(true);}}>
                         Parse
                     </Button>
                 </div>
                 <div className="results-container">
-                    <Table aria-label="Parser results table">
+                    {loading ? <Skeleton /> : (
+                        <Table aria-label="Parser results table">
                         <Thead>
                             <Tr>
                                 <Th key="service">Услуга</Th>
@@ -52,6 +62,7 @@ function App() {
                             ))}
                         </Tbody>
                     </Table>
+                    )}                    
                 </div>
             </div>
         </div>

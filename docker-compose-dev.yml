@@ -4,6 +4,8 @@ services:
     build:
       context: frontend
       dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend/src:/app/src
     ports:
       - 5173:5173
   backend:
@@ -13,10 +15,10 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 8080:8080
-    depends_on:
-      - playwright
+    # depends_on:
+    #   - playwright
     volumes:
-      - backend_cache:/root/.cache/ms-playwright
+      - ./backend/src:/app/src
   postgres:
     container_name: postgres
     image: postgres:17.5-bullseye
@@ -26,12 +28,12 @@ services:
       POSTGRES_PASSWORD: parser
       POSTGRES_USER: parser
       POSTGRES_DB: parser
-  playwright:
-    container_name: playwright
-    image: mcr.microsoft.com/playwright:v1.51.0-noble
-    volumes:
-      - /app/node_modules
-    command: ["npx", "playwright@1.51.0", "run-server", "--port", "3000", "--host", "0.0.0.0"]
+  # playwright:
+  #   container_name: playwright
+  #   image: mcr.microsoft.com/playwright:v1.51.0-noble
+  #   volumes:
+  #     - /app/node_modules
+  #   command: ["npx", "playwright@1.51.0", "run-server", "--port", "3000", "--host", "0.0.0.0"]
 
 volumes:
   backend_cache:

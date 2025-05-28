@@ -19,8 +19,8 @@ public class ParserController {
     public List<Service> parseServices(@RequestBody ParserRequest request) {
         List<Service> services = new ArrayList<>();
         String urlDecoded = "";
+        String urlEncoded = request.getUrlEncoded();
         try {
-            String urlEncoded = request.getUrlEncoded();
             System.out.println("URL encoded: " + urlEncoded);
             if (urlEncoded == null || urlEncoded.isEmpty()) {
                 System.out.println("URL is empty");
@@ -34,12 +34,6 @@ public class ParserController {
 
         CleaningSiteInterface cleaningSite = CleaningSiteFactory.createCleaningSite(urlDecoded);
         services = cleaningSite.parseContent();
-
-        // services.add(new Service(1, "Уборка \"Стандарт\"", "150 руб./кв.м"));
-        // services.add(new Service(1, "Генеральная уборка", "300 руб./кв.м"));
-        // services.add(new Service(1, "Уборка в новостройке/уборка после ремонта, строительства", "200 руб./кв.м"));
-        // services.add(new Service(1, "Мойка стекол, зеркал (с одной стороны)", "200 руб./кв.м"));
-        // services.add(new Service(1, "Мойка окон (с двух сторон)", "400 руб./кв.м"));
 
         return services;
     }
