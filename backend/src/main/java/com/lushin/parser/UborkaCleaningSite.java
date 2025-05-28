@@ -73,7 +73,6 @@ public class UborkaCleaningSite implements CleaningSiteInterface {
 
             List<Service> services = new ArrayList<>();
             
-            // Pattern to match table rows with service info and price
             Pattern pattern = Pattern.compile("<tr[^>]*>[^>]*<td[^>]*>([^>]*)<\\/td><td[^>]*>([^>]*)<\\/td><td[^>]*>(?:[^>]*)<\\/td><td[^>]*>(?:[^>]*)<\\/td><\\/tr>");
             Matcher matcher = pattern.matcher(html);
 

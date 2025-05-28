@@ -15,25 +15,8 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 8080:8080
-    # depends_on:
-    #   - playwright
     volumes:
       - ./backend/src:/app/src
-  postgres:
-    container_name: postgres
-    image: postgres:17.5-bullseye
-    restart: always
-    shm_size: 128mb
-    environment:
-      POSTGRES_PASSWORD: parser
-      POSTGRES_USER: parser
-      POSTGRES_DB: parser
-  # playwright:
-  #   container_name: playwright
-  #   image: mcr.microsoft.com/playwright:v1.51.0-noble
-  #   volumes:
-  #     - /app/node_modules
-  #   command: ["npx", "playwright@1.51.0", "run-server", "--port", "3000", "--host", "0.0.0.0"]
 
 volumes:
   backend_cache:

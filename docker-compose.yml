@@ -8,13 +8,6 @@ services:
       - 3000:80
   backend:
     container_name: backend
-    build: ./backend
-  postgres:
-    container_name: postgres
-    image: postgres:17.5-bullseye
-    restart: always
-    shm_size: 128mb
-    environment:
-      POSTGRES_PASSWORD: parser
-      POSTGRES_USER: parser
-      POSTGRES_DB: parser
+    build:
+      context: backend
+      dockerfile: Dockerfile.prod
